@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PM25_CITIES_REQUEST_URL =
             "http://www.pm25.in/api/querys.json?token=5j1znBVAsnSf5xQyNQyq";
 
+    private String citiesResponse = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonClick(View view) {
+        citiesResponse = queryData(PM25_CITIES_REQUEST_URL);
+        updateUi(citiesResponse);
     }
 
     /**
