@@ -33,7 +33,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonClick(View view) {
-        citiesResponse = queryData(PM25_CITIES_REQUEST_URL);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                citiesResponse = queryData(PM25_CITIES_REQUEST_URL);
+            }
+        }).start();
+
         updateUi(citiesResponse);
     }
 
