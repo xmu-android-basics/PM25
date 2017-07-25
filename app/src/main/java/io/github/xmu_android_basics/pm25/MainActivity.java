@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 citiesResponse = queryData(PM25_CITIES_REQUEST_URL);
+
+                updateUi(citiesResponse);
             }
         }).start();
-
-        updateUi(citiesResponse);
     }
 
     /**
