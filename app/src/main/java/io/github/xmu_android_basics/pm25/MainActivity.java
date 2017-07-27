@@ -1,5 +1,6 @@
 package io.github.xmu_android_basics.pm25;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonClick(View view) {
-        citiesResponse = queryData(PM25_CITIES_REQUEST_URL);
-        updateUi(citiesResponse);
+        new QueryDataTask().execute(PM25_CITIES_REQUEST_URL);
     }
 
     /**
@@ -133,5 +133,27 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return output.toString();
+    }
+
+    /**
+     * 使用示例：
+     * new QueryDataTask().execute(PM25_CITIES_REQUEST_URL);
+     */
+    private class QueryDataTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... stringUrls) {
+            // 确定有传入参数
+            if (stringUrls != null && stringUrls.length > 0 ) {
+                return queryData(stringUrls[0]);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String httpResponse) {
+            updateUi(httpResponse);
+        }
     }
 }
