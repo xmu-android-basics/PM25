@@ -46,10 +46,15 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Update the screen to display information from the given response.
      */
-    private void updateUi(String response) {
-        TextView responseTextView = (TextView) findViewById(R.id.response);
+    private void updateUi(final String response) {
+        final TextView responseTextView = (TextView) findViewById(R.id.response);
 
-        responseTextView.setText(response);
+        responseTextView.post(new Runnable() {
+            @Override
+            public void run() {
+                responseTextView.setText(response);
+            }
+        });
     }
 
     private String queryData(String queryString) {
